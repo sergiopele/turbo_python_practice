@@ -1,8 +1,9 @@
 import os
+from logo import logo
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 def input_funct() -> str:
-        user_input = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
+        user_input = input(f"{logo}\nType 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
         while not (user_input == "encode" or user_input == "decode"):
                 print("Please enter valid input \"encode\" or \"decode\"")
                 user_input = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
@@ -40,7 +41,7 @@ def decode(message:str, shift:int) -> str:
 def direction_definer(user_input:str) -> str:
         message = input("Type your message:\n").lower()
         shift = int(input("Type the shift number:\n"))
-        while not shift.is_integer() or shift < 1:
+        while not shift.is_integer() or (shift < 1 and shift > 25):
                 shift = int(input("Shift number can not be a char or less than 1\nPlease enter a valid shift number:\n"))     
         result = ""
         if user_input == "encode":
