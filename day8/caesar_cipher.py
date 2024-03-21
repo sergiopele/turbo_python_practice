@@ -41,8 +41,9 @@ def decode(message:str, shift:int) -> str:
 def direction_definer(user_input:str) -> str:
         message = input("Type your message:\n").lower()
         shift = int(input("Type the shift number:\n"))
-        while not shift.is_integer() or (shift < 1 and shift > 25):
-                shift = int(input("Shift number can not be a char or less than 1\nPlease enter a valid shift number:\n"))     
+        while not shift.is_integer() or (shift < 1):
+                shift = int(input("Shift number can not be a char or less than 1\nPlease enter a valid shift number:\n"))  
+        shift %= 26 if shift > 26 else shift
         result = ""
         if user_input == "encode":
                 result = encode(message, shift)
