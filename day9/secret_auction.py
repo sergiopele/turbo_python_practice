@@ -1,5 +1,5 @@
 import os
-from art import logo
+from day9.art import logo
 
 print(f"{logo}\nWelcome to the secret auction program.")
 bids = {}
@@ -25,5 +25,3 @@ while True:
 
 os.system("clear")
 calculate_max_bid(bids)
-
-
