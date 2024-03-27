@@ -1,4 +1,5 @@
 import random
+import os
 
 cpu = {
         "player_name": "CPU", 
@@ -63,60 +64,51 @@ def define_winner():
         cpu_scores = cpu["scores"]
         user_bidding = user["bidding"]
         cpu_bidding = cpu["bidding"]
-        is_winner_defined = False
         if (not user_bidding and not cpu_bidding) or user_score > 21 or cpu_scores > 21:
                 if (user_score > 21 and cpu_scores < 21) or ((user_score < 21) < (cpu_scores < 22)):
                         print("You LOSE")
-                        is_winner_defined = True
-                elif user_score < 22 and cpu_scores < 22:
+                        return True
+                elif (user_score < 22 and cpu_scores < 22) and user_score == cpu_scores:
                         print("Draw")
-                        is_winner_defined = True
+                        return True
                 elif(user_score < 21 and cpu_scores > 21) or (user_score < 21 and cpu_scores > 21) or (user_score == 21 and cpu_scores != 21):
                         print("You WIN!")
-                        is_winner_defined = True
+                        return True
                 else:
-                        is_winner_defined = False
+                        return False
         else:
                 if user_score == 21:
                         print("You WIN!")
-                        is_winner_defined = True
+                        return True
                 elif cpu_scores == 21:
                         print("You Lose")
-                        is_winner_defined = True
+                        return True
                 else:
-                        is_winner_defined = False
-        if is_winner_defined:
-                if input("Do you want to play again? 'y' or 'n'?").lower() == "y":
-                        reset_scores()
-                        continue_playing = True
-                else:
-                       continue_playing = False 
-        
-                
-                
+                        return False
 
-
-
-        
-
-              
-continue_playing = False
-while not continue_playing:
-        card_picker(True, cpu)
-        card_picker(True, user)
-        calculate_score(user)
-        calculate_score(cpu)
-        print(cpu["scores"])
-        print(user["scores"])
-
-        while not define_winner():
-                continue_game(cpu)
-                continue_game(user)
-                card_picker(False, cpu)
-                card_picker(False, user)
+def play_game():
+        continue_playing = True
+        while continue_playing:
+                reset_scores()
+                card_picker(True, cpu)
+                card_picker(True, user)
                 calculate_score(user)
                 calculate_score(cpu)
-                print(cpu)
-                print(user)
+                print(f"{cpu["player_name"]} scores: {cpu["scores"]}")
+                print(f"{user["player_name"]} scores: {user['scores']}")
+                continue_playing
+                while not define_winner():
+                        continue_game(cpu)
+                        continue_game(user)
+                        card_picker(False, cpu)
+                        card_picker(False, user)
+                        calculate_score(user)
+                        calculate_score(cpu)
+                        print(f"{cpu["player_name"]} scores: {cpu["scores"]}")
+                        print(f"{user["player_name"]} scores: {user['scores']}")
+                continue_playing = True if input("Do you want to play gane again? Type 'y' or 'n'") == "y" else False
+                os.system("clean") 
+                
+play_game()        
 
 
