@@ -56,7 +56,6 @@ def wrong_answer():
         display_main_logo()
         print(f"Sorry, that's wrong. Final score: {score}")
 
-
 def validate_result(user_input:str):
         global score
         while True:
