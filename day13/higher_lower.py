@@ -25,13 +25,13 @@ def pickup_comparison():
         global random_number_tracker
         global data_to_compare
         if len(data_to_compare) == 0:
+                display_main_logo()
                 data_to_compare.append(data[generate_rand_num()])
                 data_to_compare.append(data[generate_rand_num()])
         else:
                 data_to_compare.pop(0)
                 random_number_tracker.pop(0)
                 data_to_compare.append(data[generate_rand_num()])
-                print(data_to_compare)
 
 def game_runner():
         pickup_comparison()
@@ -43,6 +43,20 @@ def game_runner():
         usr_input = input("Who has more followers? Type 'A' or 'B': ")
         return validate_result(usr_input)
 
+def correct_answer():
+        global score
+        score += 1
+        clean_screen()
+        display_main_logo()
+        print(f"You are right! Your current score is {score}")
+
+def wrong_answer():
+        global score
+        clean_screen()
+        display_main_logo()
+        print(f"Sorry, that's wrong. Final score: {score}")
+
+
 def validate_result(user_input:str):
         global score
         while True:
@@ -51,28 +65,17 @@ def validate_result(user_input:str):
                 user_input = input("Please provide a valid input. Type 'a','A' or 'b','B'.")
 
         if user_input.lower() == 'a' and data_to_compare[0]["follower_count"] > data_to_compare[1]["follower_count"]:
-                score += 1
-                clean_screen()
-                display_main_logo()
-                print(f"You are right! Your current score is {score}")
+                correct_answer()
                 return True
         elif user_input.lower() == 'b' and data_to_compare[0]["follower_count"] < data_to_compare[1]["follower_count"]:
-                score += 1
-                clean_screen()
-                display_main_logo()
-                print(f"You are right! Your current score is {score}")
+                correct_answer()
                 return True
         else:
-                clean_screen()
-                display_main_logo()
-                print(f"Sorry, that's wrong. Final score: {score}")
+                wrong_answer()
                 return False
-
-
-display_main_logo()
+        
 while True:
-        if not game_runner():
-                break
+        if not game_runner(): break
 
 
 
