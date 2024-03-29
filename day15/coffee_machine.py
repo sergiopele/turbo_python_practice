@@ -14,21 +14,19 @@ def clear_screen():
 def take_order() -> str:
         while True:
                 user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
-                if user_input in ["espresso","latte","cappuccino","off","report"]:
-                        print_report(user_input)
+                if user_input == "report":
+                        print_report()
+                elif user_input in ["espresso","latte","cappuccino","off"]:
                         return user_input
-                print("Please provide correct input")
+                else:
+                        print("Please provide correct input")
 
-
-def turn_off_machine(command:str) -> bool:
-        return True if command == "off" else False
-
-def print_report(command:str):
-        if command == "report":
-                print(f"Water: {resource["Water"]}\nMilk: {resource["Milk"]}\nCoffee: {resource["Coffee"]}\nMoney: {resource["Money"]}")
+def print_report():
+        print(f"Water: {resource["Water"]}\nMilk: {resource["Milk"]}\nCoffee: {resource["Coffee"]}\nMoney: {resource["Money"]}")
 
 def check_resource_sufficient(order:str) -> bool:
         global resource, user_order
+        if order == "off": return False
         ingredients = menu[order.title()]
         evaluate_capacity = resource
         for i in evaluate_capacity:
@@ -51,6 +49,7 @@ def process_coins() -> bool:
                                 if payment.isdecimal() and int(payment) >= 0:
                                         coins_type_inserted[coin] = int(payment)
                                         break
+                                elif payment == "off": return False
                                 print("Please provide valid coin")
 
                 sum = round((coins_type_inserted["pennies"] * 0.01) + (coins_type_inserted["nickles"] * 0.05) + (coins_type_inserted["dimes"] * 0.10) + (coins_type_inserted["quarters"] * 0.25), 2)
@@ -60,20 +59,23 @@ def process_coins() -> bool:
                 else:
                         print("Sorry that's not enough money. Money refunded.")
                         return False
-                resource["Money"] = order_price
+                resource["Money"] += order_price
                 return True
         
 def make_coffee():
         global user_order
         if not (check_resource_sufficient(take_order()) and process_coins()):
                 return False
-        print_report("report")
+        print_report()
         print(f"“Here is your {user_order}. Enjoy!")
         return True
+
+def another_order():
+        return True if input("Do you want make another order? Type 'y' or 'n'").lower() == "y" else False
         
 
 while True:
-        if not make_coffee():
+        if not (make_coffee() and another_order()):
                 break
 
     
