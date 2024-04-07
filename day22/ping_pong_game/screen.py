@@ -1,6 +1,6 @@
 from turtle import Turtle, Screen
 
-from paddles import Paddles
+from paddles import Paddle
 
 
 RESOLUTION = (800, 600)
@@ -10,7 +10,8 @@ LINE_SIZE = 4
 LINE_COLOR = "grey"
 KEY_EVENT_UP = "Up"
 KEY_EVENT_DOWN = "Down"
-
+KEY_EVENT_UP_2 = "w"
+KEY_EVENT_DOWN_2 = "s"
 
 class Game_screen:
 
@@ -22,6 +23,7 @@ class Game_screen:
         self.screen.bgcolor(BACKGROUND_COLOR)
         self.draw_line()
         self.screen.tracer(1)
+        self.screen.listen()
 
     def close_window_on_click(self):
         self.screen.exitonclick()
@@ -46,7 +48,10 @@ class Game_screen:
     def update_screen(self):
         self.screen.update()
 
-    def paddle_1_keyboard_events(self, paddle_obj: Paddles):
-        self.screen.listen()
+    def paddle_1_keyboard_events(self, paddle_obj: Paddle):
         self.screen.onkey(key=KEY_EVENT_UP, fun=paddle_obj.move_paddle_up)
         self.screen.onkey(key=KEY_EVENT_DOWN, fun=paddle_obj.move_paddle_down)
+
+    def paddle_2_keyboard_events(self, paddle_obj: Paddle):
+        self.screen.onkey(key=KEY_EVENT_UP_2, fun=paddle_obj.move_paddle_up)
+        self.screen.onkey(key=KEY_EVENT_DOWN_2, fun=paddle_obj.move_paddle_down)

@@ -1,11 +1,14 @@
-from paddles import Paddles
+from paddles import Paddle
 from screen import Game_screen
 
 new_screen = Game_screen()
-paddle = Paddles()
+paddle = Paddle(-380,0)
+paddle2 = Paddle(370,0)
 new_screen.update_screen()
 new_screen.paddle_1_keyboard_events(paddle)
 new_screen.update_screen()
+new_screen.paddle_2_keyboard_events(paddle2)
+
 
 
 
