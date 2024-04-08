@@ -1,5 +1,4 @@
 from turtle import Turtle, Screen
-
 from paddles import Paddle
 
 
@@ -55,3 +54,4 @@ class Game_screen:
     def paddle_2_keyboard_events(self, paddle_obj: Paddle):
         self.screen.onkey(key=KEY_EVENT_UP_2, fun=paddle_obj.move_paddle_up)
         self.screen.onkey(key=KEY_EVENT_DOWN_2, fun=paddle_obj.move_paddle_down)
+

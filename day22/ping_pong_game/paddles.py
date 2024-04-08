@@ -6,7 +6,7 @@ PADDLES_HEADING = 90
 PADDLES_COLOR = "white"
 PADDLES_UP_LIMIT = 250
 PADDLES_DOWN_LIMIT = -250
-PADDLES_STEP = 25
+PADDLES_STEP = 50
 
 
 
@@ -14,6 +14,7 @@ class Paddle(Turtle):
         def __init__(self, paddle_Xpos, paddle_Ypos):
                 super().__init__()
                 self.create_paddle(paddle_Xpos, paddle_Ypos)
+                self.speed("fastest")
 
         def create_paddle(self, paddle_Xpos, paddle_Ypos):
                 self.hideturtle()
