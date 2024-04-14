@@ -7,9 +7,10 @@ LEFT = 180
 RIGHT = 0
 
 
-class Snake:
+class Snake(Turtle):
 
     def __init__(self):
+        super().__init__()
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
@@ -51,3 +52,12 @@ class Snake:
     def right_direction(self):
         if not self.head.heading() == LEFT:
             self.head.setheading(RIGHT)
+            
+    def reset(self):
+        for segment in self.segments:
+            segment.hideturtle()
+        self.segments.clear()
+        self.create_snake(3)
+        self.head = self.segments[0]
+        self.showturtle()
+        
