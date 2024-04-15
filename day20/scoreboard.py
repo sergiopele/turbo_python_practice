@@ -32,7 +32,6 @@ class Scoreboard(Turtle):
     def reset(self):
         if self.score > self.read_score():
             self.write_score(self.score)
-            self.read_score()
         self.score = 0
         self.clear()
         self.__display_score()
