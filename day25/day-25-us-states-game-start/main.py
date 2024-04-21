@@ -51,7 +51,9 @@ while is_game_on:
         )
         break
 
-state_to_learn = list(set(states_data_set) - set(entered_states))
+# state_to_learn = list(set(states_data_set) - set(entered_states))
+state_to_learn = [state for state in states_data_set if state not in entered_states]
+
 pandas.DataFrame(state_to_learn, columns=["States"]).to_csv(
-    "state_to_learn.csv", index=False, mode="w"
+    "day25/day-25-us-states-game-start/state_to_learn.csv", index=False, mode="w"
 )
